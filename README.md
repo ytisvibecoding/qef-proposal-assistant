@@ -1,10 +1,12 @@
 # QEF 計劃書助手 — 使用說明
 
 > 香港優質教育基金 (QEF) 計劃書 AI 代筆助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。
+>
+> **本助手是純 Markdown，沒有任何平台專有語法，可在任何 AI 工具中使用。**
 
-## 一句話安裝（WorkBuddy / CodeBuddy）
+## 快速開始（選你的 AI 工具）
 
-在 WorkBuddy 或 CodeBuddy 對話中輸入：
+### WorkBuddy / CodeBuddy（一句話安裝）
 
 ```
 安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
@@ -12,43 +14,39 @@
 
 AI 會自動下載並安裝到 `~/.workbuddy/skills/qef-proposal-assistant/`。
 
-## 手動安裝
-
-### 方式 1：直接下載
-
-1. 點擊 [下載 ZIP](https://github.com/ytisvibecoding/qef-proposal-assistant/archive/refs/heads/main.zip)
-2. 解壓到 `~/.workbuddy/skills/qef-proposal-assistant/`
-3. 開新對話，說「我想申請 QEF」即自動觸發
-
-### 方式 2：Git Clone
-
-```bash
-git clone https://github.com/ytisvibecoding/qef-proposal-assistant.git ~/.workbuddy/skills/qef-proposal-assistant
-```
-
-## 其他 AI 工具用法
-
-本 Skill 是純 Markdown，沒有任何 WorkBuddy 專有語法，可在任何 AI 工具中使用：
-
 ### Claude (claude.ai)
+
 1. 建立 Project → 把 `SKILL.md` 和 `references/rules.md` 內容貼進 Project Instructions
 2. 開始對話即可
 
 ### ChatGPT Custom GPT
+
 1. 建立 GPT → 把 `SKILL.md` 內容貼進 Instructions
 2. 把 `references/rules.md` 作為 Knowledge file 上傳
 3. 開始對話即可
 
 ### Cursor / Windsurf
+
 1. 把 `SKILL.md` 內容放入 `.cursor/rules/` 或 `.windsurfrules`
 2. `references/rules.md` 放在專案根目錄或貼入 rules
 
 ### 任何對話式 AI
+
 1. 開新對話
 2. 先把 `SKILL.md` 全文貼進去
 3. 再把 `references/rules.md` 全文貼進去
 4. 告訴 AI：「以上是我的 QEF 計劃書助手規則，請按此協助我」
 5. 開始對話
+
+### 手動下載（任何平台通用）
+
+1. 點擊 [下載 ZIP](https://github.com/ytisvibecoding/qef-proposal-assistant/archive/refs/heads/main.zip)
+2. 解壓後按上述對應平台的方式使用
+
+或 Git Clone：
+```bash
+git clone https://github.com/ytisvibecoding/qef-proposal-assistant.git
+```
 
 ## 檔案結構
 
