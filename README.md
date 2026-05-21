@@ -48,27 +48,30 @@ git clone https://github.com/ytisvibecoding/qef-proposal-assistant.git ~/.hermes
 
 ### Claude (claude.ai)
 
-1. 建立 Project → 把 `SKILL.md` 和 `references/rules.md` 內容貼進 Project Instructions
-2. 開始對話即可
+**方式一（推薦）：Project Instructions**
+1. 新建 Project → 把 `SKILL.md` 和 `references/rules.md` 內容貼進 Project Instructions
+2. 開始對話
+
+**方式二（快速）：直接貼對話**
+1. 開新對話，把 GitHub repo 鏈接貼進去：`https://github.com/ytisvibecoding/qef-proposal-assistant`
+2. 告訴 Claude：「請讀取這個 repo 的 SKILL.md 和 references/rules.md，然後幫我寫 QEF 計劃書」
 
 ### ChatGPT Custom GPT
 
-1. 建立 GPT → 把 `SKILL.md` 內容貼進 Instructions
+1. 新建 GPT → 把 `SKILL.md` 內容貼進 Instructions
 2. 把 `references/rules.md` 作為 Knowledge file 上傳
-3. 開始對話即可
+3. 開始對話
 
 ### Cursor / Windsurf
 
-1. 把 `SKILL.md` 內容放入 `.cursor/rules/` 或 `.windsurfrules`
-2. `references/rules.md` 放在專案根目錄或貼入 rules
+1. 把 `SKILL.md` 和 `references/rules.md` 複製到專案目錄
+2. 在對話中告訴 AI：「請參考專案中的 SKILL.md 和 references/rules.md 來協助我」
 
 ### 任何對話式 AI
 
 1. 開新對話
-2. 先把 `SKILL.md` 全文貼進去
-3. 再把 `references/rules.md` 全文貼進去
-4. 告訴 AI：「以上是我的 QEF 計劃書助手規則，請按此協助我」
-5. 開始對話
+2. 告訴 AI：「我要用這個 QEF 計劃書助手：https://github.com/ytisvibecoding/qef-proposal-assistant，請讀取 SKILL.md 和 references/rules.md 的內容」
+3. 開始對話
 
 ### 手動下載（任何平台通用）
 
