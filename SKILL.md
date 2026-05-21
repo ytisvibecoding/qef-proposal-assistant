@@ -3,7 +3,7 @@ name: qef-proposal-assistant
 description: "香港優質教育基金 (QEF) 計劃書編寫助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。"
 description_zh: "QEF計劃書助手（AI幫你寫）"
 description_en: "QEF Proposal Writer (AI does the heavy lifting)"
-version: "1.4.0"
+version: "1.5.0"
 remote_url: "https://github.com/ytisvibecoding/qef-proposal-assistant"
 disable: false
 agent_created: true
@@ -26,12 +26,12 @@ agent_created: true
 
 ## 版本更新
 
-當前版本：1.4.0
+當前版本：1.5.0
 遠端地址：https://github.com/ytisvibecoding/qef-proposal-assistant
 
-> ⚠️ **重要**：CodeBuddy/WorkBuddy 的 skill 不支持 AI 自己改自己的文件。更新必須通過平台的 skill 安裝機制完成。
+> ⚠️ **重要**：Skill 不支持 AI 自己改自己的文件。更新必須通過平台的 skill 安裝機制完成。
 
-### 更新方式（三種，任選其一）
+### 更新方式（兩種，任選其一）
 
 **方式一：重新安裝（推薦，一句話）**
 
@@ -40,31 +40,20 @@ agent_created: true
 安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
 ```
 
-CodeBuddy 會自動從 GitHub 下載最新版並覆蓋本地文件。
+平台會自動從 GitHub 下載最新版並覆蓋本地文件。
 
-**方式二：終端腳本（有終端時）**
+**方式二：手動刪除重裝**
 
-```bash
-curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash
+刪除本地 skill 資料夾，然後在對話中說：
 ```
-
-如顯示「已是最新」但實際不是，加 `--force`：
-```bash
-curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash -s -- --force
-```
-
-**方式三：手動刪除重裝**
-
-```bash
-rm -rf ~/.codebuddy/skills/qef-proposal-assistant
-# 然後在對話中說：安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
+安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
 ```
 
 ### 版本檢查提示
 
 每次啟動本 skill 時，AI 用 WebFetch 讀取遠端 SKILL.md 的 `version` 字段：
 - 版本一致 → 不提示
-- 遠端版本更新 → 提示老師：「🔄 QEF 計劃書助手有新版本（本地 v1.4.0 → 遠端 vX.Y.Z），請在對話中說「安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant」即可更新」
+- 遠端版本更新 → 提示老師：「🔄 QEF 計劃書助手有新版本（本地 v1.5.0 → 遠端 vX.Y.Z），請在對話中說「安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant」即可更新」
 - 無法連接 → 靜默跳過
 
 > 注意：版本檢查只做一次（對話開始時），之後不再重複提醒。
