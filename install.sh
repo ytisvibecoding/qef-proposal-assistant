@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# QEF Proposal Assistant - Install / Update Script
+# QEF Proposal Assistant - Install / Update Script (v1.4.0)
 # Usage:
 #   Install/Update:  curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash
 #   Force reinstall:  curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash -s -- --force
