@@ -3,7 +3,7 @@ name: qef-proposal-assistant
 description: "香港優質教育基金 (QEF) 計劃書編寫助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。"
 description_zh: "QEF計劃書助手（AI幫你寫）"
 description_en: "QEF Proposal Writer (AI does the heavy lifting)"
-version: "1.3.0"
+version: "1.4.0"
 remote_url: "https://github.com/ytisvibecoding/qef-proposal-assistant"
 disable: false
 agent_created: true
@@ -26,52 +26,48 @@ agent_created: true
 
 ## 版本更新
 
-當前版本：1.3.0
+當前版本：1.4.0
 遠端地址：https://github.com/ytisvibecoding/qef-proposal-assistant
 
-### 啟動時自動檢查（每次對話開始時執行一次）
+> ⚠️ **重要**：CodeBuddy/WorkBuddy 的 skill 不支持 AI 自己改自己的文件。更新必須通過平台的 skill 安裝機制完成。
 
-1. 用 WebFetch 訪問 `https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/SKILL.md`，提取遠端 `version` 字段
-2. 比對本地版本與遠端版本：
-   - 版本一致 → 不提示，正常工作
-   - 遠端版本更新 → 提示老師並**立即執行自動更新**：
+### 更新方式（三種，任選其一）
 
-   > 🔄 **QEF 計劃書助手有新版本（本地 v1.3.0 → 遠端 vX.Y.Z）**，正在自動更新...
+**方式一：重新安裝（推薦，一句話）**
 
-   然後執行以下「自動更新流程」：
-   a. WebFetch 獲取遠端 `SKILL.md` 全文 → Write 覆蓋本地 `SKILL.md`
-   b. WebFetch 獲取遠端 `references/rules.md` 全文 → Write 覆蓋本地 `references/rules.md`
-   c. WebFetch 獲取遠端 `README.md` 全文 → Write 覆蓋本地 `README.md`
-   d. 驗證：讀取更新後的本地 SKILL.md，確認 version 字段已更新
-   e. 告知老師：✅ 更新完成！現在是 vX.Y.Z
+在對話中說：
+```
+安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
+```
 
-   - 無法連接遠端 → 靜默跳過，不影響使用
+CodeBuddy 會自動從 GitHub 下載最新版並覆蓋本地文件。
 
-### 用戶主動更新
+**方式二：終端腳本（有終端時）**
 
-老師在對話中說「更新 QEF skill」或「更新 skill」時，AI 應：
-1. WebFetch 獲取遠端 SKILL.md → 提取 version
-2. 比對本地版本
-3. 如有新版本 → 執行上述自動更新流程
-4. 如已是最新 → 告知老師「已是最新版本 vX.Y.Z」
-5. 如無法連接 → 告知老師「無法連接 GitHub，請稍後再試」
+```bash
+curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash
+```
 
-### 更新文件範圍
+如顯示「已是最新」但實際不是，加 `--force`：
+```bash
+curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash -s -- --force
+```
 
-每次更新必須覆蓋以下所有文件（確保完整同步）：
-- `SKILL.md`（核心規則）
-- `references/rules.md`（知識庫）
-- `README.md`（說明文檔）
-- `install.sh`（安裝腳本，如存在）
+**方式三：手動刪除重裝**
 
-> ⚠️ **不要只更新 SKILL.md 而忘記 rules.md**——rules.md 包含 QEF 官方文檔的最新整合，兩者必須同步。
+```bash
+rm -rf ~/.codebuddy/skills/qef-proposal-assistant
+# 然後在對話中說：安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
+```
 
-### 偵測 Skill 目錄位置
+### 版本檢查提示
 
-更新時需先找到本地 skill 目錄。按以下順序偵測：
-1. `~/.workbuddy/skills/qef-proposal-assistant/`
-2. `~/.codebuddy/skills/qef-proposal-assistant/`
-3. 如都不存在 → 提示老師「Skill 尚未安裝，請先安裝」
+每次啟動本 skill 時，AI 用 WebFetch 讀取遠端 SKILL.md 的 `version` 字段：
+- 版本一致 → 不提示
+- 遠端版本更新 → 提示老師：「🔄 QEF 計劃書助手有新版本（本地 v1.4.0 → 遠端 vX.Y.Z），請在對話中說「安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant」即可更新」
+- 無法連接 → 靜默跳過
+
+> 注意：版本檢查只做一次（對話開始時），之後不再重複提醒。
 
 ---
 
