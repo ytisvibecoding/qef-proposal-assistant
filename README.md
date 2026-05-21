@@ -6,6 +6,14 @@
 
 ## 快速開始（選你的 AI 工具）
 
+### WorkBuddy / CodeBuddy（一句話安裝）
+
+```
+安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
+```
+
+AI 會自動下載並安裝到 `~/.workbuddy/skills/qef-proposal-assistant/`。
+
 ### OpenClaw（對話式安裝）
 
 在 OpenClaw 對話中直接說：
@@ -37,14 +45,6 @@ hermes skills install github/ytisvibecoding/qef-proposal-assistant
 ```bash
 git clone https://github.com/ytisvibecoding/qef-proposal-assistant.git ~/.hermes/skills/qef-proposal-assistant
 ```
-
-### WorkBuddy / CodeBuddy（一句話安裝）
-
-```
-安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
-```
-
-AI 會自動下載並安裝到 `~/.workbuddy/skills/qef-proposal-assistant/`。
 
 ### Claude (claude.ai)
 
