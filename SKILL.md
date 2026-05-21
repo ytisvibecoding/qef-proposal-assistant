@@ -3,6 +3,8 @@ name: qef-proposal-assistant
 description: "香港優質教育基金 (QEF) 計劃書編寫助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。"
 description_zh: "QEF計劃書助手（AI幫你寫）"
 description_en: "QEF Proposal Writer (AI does the heavy lifting)"
+version: "1.2.0"
+remote_url: "https://github.com/ytisvibecoding/qef-proposal-assistant"
 disable: false
 agent_created: true
 ---
@@ -19,6 +21,22 @@ agent_created: true
 
 啟動時必須載入：
 - `references/rules.md`：10 份官方文檔的完整整合（願景、優先主題、評審準則、預算規則、格式要求、不獲批原因、官方範例）
+
+---
+
+## 版本更新檢查
+
+每次啟動本 Skill 時，AI 應執行以下檢查：
+
+1. 讀取本地 SKILL.md 的 `version` 字段（當前版本：1.2.0）
+2. 用 WebFetch 訪問 `https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/SKILL.md`，提取遠端 `version` 字段
+3. 比對版本：
+   - 版本一致 → 不提示，正常工作
+   - 遠端版本更新 → 在對話開頭提示老師：
+     > 🔄 **QEF 計劃書助手有新版本（本地 v1.2.0 → 遠端 vX.Y.Z）**，建議更新以獲得最新功能。更新方式：在終端執行 `curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash`
+   - 無法連接遠端 → 靜默跳過，不影響使用
+
+> 注意：版本檢查只做一次（對話開始時），之後不再重複提醒。
 
 ---
 

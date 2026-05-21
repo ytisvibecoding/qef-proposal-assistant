@@ -6,6 +6,14 @@
 
 ## 快速開始（選你的 AI 工具）
 
+### 一鍵安裝/更新（macOS / Linux）
+
+```bash
+curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash
+```
+
+> 自動偵測 WorkBuddy / CodeBuddy 的 skill 目錄，安裝或更新到最新版本。已安裝且是最新版則跳過。
+
 ### WorkBuddy / CodeBuddy（一句話安裝）
 
 ```
@@ -89,6 +97,7 @@ git clone https://github.com/ytisvibecoding/qef-proposal-assistant.git
 qef-proposal-assistant/
 ├── README.md              ← 你正在看的這份
 ├── SKILL.md               # 核心：工作流程、鐵律、搜索策略
+├── install.sh             # 一鍵安裝/更新腳本
 └── references/
     └── rules.md           # 知識庫：10 份 QEF 官方文檔整合
 ```
