@@ -1,12 +1,34 @@
 # QEF 計劃書助手 — 使用說明
 
-> 香港優質教育基金 (QEF) 計劃書編寫助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。
+> 香港優質教育基金 (QEF) 計劃書 AI 代筆助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。
 
-## 快速開始
+## 一句話安裝（WorkBuddy / CodeBuddy）
 
-### WorkBuddy / CodeBuddy
-1. 解壓整個資料夾到 `~/.workbuddy/skills/qef-proposal-assistant/`
-2. 開新對話，直接說「我想申請 QEF」即自動觸發
+在 WorkBuddy 或 CodeBuddy 對話中輸入：
+
+```
+安裝 skill：https://github.com/ytisvibecoding/qef-proposal-assistant
+```
+
+AI 會自動下載並安裝到 `~/.workbuddy/skills/qef-proposal-assistant/`。
+
+## 手動安裝
+
+### 方式 1：直接下載
+
+1. 點擊 [下載 ZIP](https://github.com/ytisvibecoding/qef-proposal-assistant/archive/refs/heads/main.zip)
+2. 解壓到 `~/.workbuddy/skills/qef-proposal-assistant/`
+3. 開新對話，說「我想申請 QEF」即自動觸發
+
+### 方式 2：Git Clone
+
+```bash
+git clone https://github.com/ytisvibecoding/qef-proposal-assistant.git ~/.workbuddy/skills/qef-proposal-assistant
+```
+
+## 其他 AI 工具用法
+
+本 Skill 是純 Markdown，沒有任何 WorkBuddy 專有語法，可在任何 AI 工具中使用：
 
 ### Claude (claude.ai)
 1. 建立 Project → 把 `SKILL.md` 和 `references/rules.md` 內容貼進 Project Instructions
