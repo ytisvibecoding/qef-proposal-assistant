@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 # QEF Proposal Assistant - Install / Update Script
-# Usage: curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash
-# Or:   bash install.sh
+# Usage:
+#   Install/Update:  curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash
+#   Force reinstall:  curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash -s -- --force
+#   Or:              bash install.sh [--force]
 
 set -e
+
+FORCE=false
+for arg in "$@"; do
+  case "$arg" in
+    --force|-f) FORCE=true ;;
+  esac
+done
 
 REPO="https://github.com/ytisvibecoding/qef-proposal-assistant"
 RAW="https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main"
@@ -16,6 +25,8 @@ detect_skill_dir() {
   elif [ -d "$HOME/.codebuddy/skills" ]; then
     echo "$HOME/.codebuddy/skills"
   else
+    # Default: try workbuddy first, create if needed
+    mkdir -p "$HOME/.workbuddy/skills"
     echo "$HOME/.workbuddy/skills"
   fi
 }
@@ -38,9 +49,14 @@ echo "🔍 正在檢查遠端最新版本..."
 REMOTE_VERSION=$(curl -sL "${RAW}/SKILL.md" 2>/dev/null | grep '^version:' | head -1 | sed 's/version: *//' | tr -d '"'"'" || echo "未知")
 echo "📋 遠端最新版本：${REMOTE_VERSION}"
 
-if [ -n "$LOCAL_VERSION" ] && [ "$LOCAL_VERSION" = "$REMOTE_VERSION" ]; then
+if [ "$FORCE" = false ] && [ -n "$LOCAL_VERSION" ] && [ "$LOCAL_VERSION" = "$REMOTE_VERSION" ]; then
   echo "✅ 已是最新版本，無需更新"
+  echo "💡 如需強制重新安裝，請加 --force 參數"
   exit 0
+fi
+
+if [ "$FORCE" = true ]; then
+  echo "⚡ --force 模式：強制重新安裝（忽略版本比對）"
 fi
 
 # Download files
@@ -50,6 +66,7 @@ mkdir -p "$SKILL_DIR/references"
 curl -sL "${RAW}/SKILL.md" -o "$SKILL_DIR/SKILL.md"
 curl -sL "${RAW}/references/rules.md" -o "$SKILL_DIR/references/rules.md"
 curl -sL "${RAW}/README.md" -o "$SKILL_DIR/README.md"
+curl -sL "${RAW}/install.sh" -o "$SKILL_DIR/install.sh" 2>/dev/null || true
 
 # Verify download
 if [ ! -s "$SKILL_DIR/SKILL.md" ]; then
@@ -58,9 +75,16 @@ if [ ! -s "$SKILL_DIR/SKILL.md" ]; then
   exit 1
 fi
 
+# Verify version in downloaded file matches remote
 INSTALLED_VERSION=$(grep '^version:' "$SKILL_DIR/SKILL.md" | head -1 | sed 's/version: *//' | tr -d '"'"'")
+if [ "$INSTALLED_VERSION" != "$REMOTE_VERSION" ] && [ "$REMOTE_VERSION" != "未知" ]; then
+  echo "⚠️ 下載版本 ($INSTALLED_VERSION) 與遠端版本 ($REMOTE_VERSION) 不一致，可能下載不完整"
+  echo "💡 建議在 AI 對話中說「更新 QEF skill」讓 AI 直接更新"
+fi
+
 echo ""
 echo "✅ 安裝完成！版本：${INSTALLED_VERSION}"
 echo "📁 安裝位置：${SKILL_DIR}"
 echo ""
 echo "💬 現在可以在 AI 對話中說「我想申請 QEF」開始使用"
+echo "🔄 如需更新，在 AI 對話中說「更新 QEF skill」即可（無需跑腳本）"

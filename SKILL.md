@@ -3,7 +3,7 @@ name: qef-proposal-assistant
 description: "香港優質教育基金 (QEF) 計劃書編寫助手。老師只需提供一句想法，AI 主動搜索、推理、填充，生成完整申請書初稿。"
 description_zh: "QEF計劃書助手（AI幫你寫）"
 description_en: "QEF Proposal Writer (AI does the heavy lifting)"
-version: "1.2.0"
+version: "1.3.0"
 remote_url: "https://github.com/ytisvibecoding/qef-proposal-assistant"
 disable: false
 agent_created: true
@@ -24,19 +24,54 @@ agent_created: true
 
 ---
 
-## 版本更新檢查
+## 版本更新
 
-每次啟動本 Skill 時，AI 應執行以下檢查：
+當前版本：1.3.0
+遠端地址：https://github.com/ytisvibecoding/qef-proposal-assistant
 
-1. 讀取本地 SKILL.md 的 `version` 字段（當前版本：1.2.0）
-2. 用 WebFetch 訪問 `https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/SKILL.md`，提取遠端 `version` 字段
-3. 比對版本：
+### 啟動時自動檢查（每次對話開始時執行一次）
+
+1. 用 WebFetch 訪問 `https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/SKILL.md`，提取遠端 `version` 字段
+2. 比對本地版本與遠端版本：
    - 版本一致 → 不提示，正常工作
-   - 遠端版本更新 → 在對話開頭提示老師：
-     > 🔄 **QEF 計劃書助手有新版本（本地 v1.2.0 → 遠端 vX.Y.Z）**，建議更新以獲得最新功能。更新方式：在終端執行 `curl -sL https://raw.githubusercontent.com/ytisvibecoding/qef-proposal-assistant/main/install.sh | bash`
+   - 遠端版本更新 → 提示老師並**立即執行自動更新**：
+
+   > 🔄 **QEF 計劃書助手有新版本（本地 v1.3.0 → 遠端 vX.Y.Z）**，正在自動更新...
+
+   然後執行以下「自動更新流程」：
+   a. WebFetch 獲取遠端 `SKILL.md` 全文 → Write 覆蓋本地 `SKILL.md`
+   b. WebFetch 獲取遠端 `references/rules.md` 全文 → Write 覆蓋本地 `references/rules.md`
+   c. WebFetch 獲取遠端 `README.md` 全文 → Write 覆蓋本地 `README.md`
+   d. 驗證：讀取更新後的本地 SKILL.md，確認 version 字段已更新
+   e. 告知老師：✅ 更新完成！現在是 vX.Y.Z
+
    - 無法連接遠端 → 靜默跳過，不影響使用
 
-> 注意：版本檢查只做一次（對話開始時），之後不再重複提醒。
+### 用戶主動更新
+
+老師在對話中說「更新 QEF skill」或「更新 skill」時，AI 應：
+1. WebFetch 獲取遠端 SKILL.md → 提取 version
+2. 比對本地版本
+3. 如有新版本 → 執行上述自動更新流程
+4. 如已是最新 → 告知老師「已是最新版本 vX.Y.Z」
+5. 如無法連接 → 告知老師「無法連接 GitHub，請稍後再試」
+
+### 更新文件範圍
+
+每次更新必須覆蓋以下所有文件（確保完整同步）：
+- `SKILL.md`（核心規則）
+- `references/rules.md`（知識庫）
+- `README.md`（說明文檔）
+- `install.sh`（安裝腳本，如存在）
+
+> ⚠️ **不要只更新 SKILL.md 而忘記 rules.md**——rules.md 包含 QEF 官方文檔的最新整合，兩者必須同步。
+
+### 偵測 Skill 目錄位置
+
+更新時需先找到本地 skill 目錄。按以下順序偵測：
+1. `~/.workbuddy/skills/qef-proposal-assistant/`
+2. `~/.codebuddy/skills/qef-proposal-assistant/`
+3. 如都不存在 → 提示老師「Skill 尚未安裝，請先安裝」
 
 ---
 
@@ -170,7 +205,7 @@ agent_created: true
 - 搜索到的引用用 `<引用: 來源>` 標記
 
 ### 文末附錄
-1. **待確認清單**：所有 [方括號] 項目的列表
+1. **待確認清單**：所有 [方括號] 項目的列表（**使用 bullet points（•）而非數字編號**，避免轉 Word 時與正文編號混排）
 2. **評審自檢表**：9 點評審準則逐項 ✅/⚠️
 3. **不獲批風險掃描**：是否有觸碰常見拒批原因
 4. **建議補充材料**：如需準備的附件清單
